@@ -1,0 +1,21 @@
+{
+	"author": "T. Jameson Little <t.jameson.little@gmail.com>",
+	"name": "squish",
+	"description": "Squish your outputs using whatever compression you like",
+	"keywords": ["compress", "compression", "gzip", "chunk", "chunked", "stream"],
+	"version": "0.1.0",
+	"homepage": "http://github.com/beatgammit/node-squish",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/beatgammit/node-squish.git"
+	},
+	"main": "lib/squish.js",
+	"engines": {
+		"node": "*"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"compressor": "*"
+	}
+}
