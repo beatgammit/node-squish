@@ -3,7 +3,7 @@
 	"name": "squish",
 	"description": "Squish your outputs using whatever compression you like",
 	"keywords": ["compress", "compression", "gzip", "chunk", "chunked", "stream"],
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"homepage": "http://github.com/beatgammit/node-squish",
 	"repository": {
 		"type": "git",
@@ -13,9 +13,8 @@
 	"engines": {
 		"node": "*"
 	},
-	"dependencies": {
-	},
 	"devDependencies": {
+		"connect": ">=1",
 		"compressor": "*"
 	}
 }
