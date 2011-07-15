@@ -1,9 +1,19 @@
 Intro
 =====
 
-Squish your output using whatever compression you like.
+Squish your output using whatever compression you choose.
 
-This has only been tested on static files, but there's no reason it shouldn't work on other stuff too. If it fails, create an issue or, better yet, fork and fix!
+Squish strives to be as standards complient as possible. The spec used as a reference can be found [here](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3).
+
+**Disclaimer:**
+
+This has only been tested on static HTML files, but there's no reason it shouldn't work on other stuff too.
+
+If it fails, create an issue; better yet, fork and fix!
+
+**Note**
+
+This module can potentially send a 406 error (as per the spec) if the user explicitly tells it to. The only way to do this is to set `Accept-Encoding: identity;0` or not set identity and set `Accept-Encoding: *;0`. If your clients do that, they deserve to get an error.
 
 How it works
 ------------
@@ -15,14 +25,14 @@ If a client does not support your algorithm, squish won't intercept or compress 
 Examples
 ========
 
-Alright, whatever, here is a working example of how to use this module:
+Here is a working example of how to use this module:
 
 	var connect = require('connect'),
 		compressor = require('compressor'),
 		squish = require('squish');
 	
 	connect(
-		squish('gzip', compressor.GzipStream),
+		squish([{"type": 'gzip', "constructor": compressor.GzipStream}]),
 		connect.static('./')
 	).listen(8080);
 
@@ -31,17 +41,18 @@ Compressor is a great little utility, and it's hosted on GitHub.  The best thing
 API
 ===
 
-Aside from what you've seen, there really isn't an API.
+Aside from what you've seen, the API is pretty simple.
 
-There are only two parameters, both of which are necessary:
+There is only one parameter, an array of objects. Each object has three properties:
 
-`compress(compressionType, streamConstructor)`
+* type- gzip, zip, etc.
+* constructor- the constructor for the compression algorithm
+  * Should be an instance of EventEmitter
+  * Must emit these events: 'data', 'end' ('error' events will be console.error'd)
+* args- arguments to pass to the constructor (can be an array or an `arguments` object, optional)
 
-* compressionType- a string, whatever you choose (like gzip, zip, etc)
-* streamConstructor- a function (without args) that will give me a stream
-  * I need a constructor because I need a new one for each request
-  * Must emit these events: 'data', 'end' (I also like 'error', but no biggie)
+On each request, squish will check each compression algorithm against the `Accept-Encoding` header. The first supported compression algorithm is used. If none are supported, nothing is compressed.
 
-Oh, go ahead and set 'Content-Length'. If the client supports your compression, I will get rid of it, otherwise I won't touch it.
+If the client supports your compression, I will get rid of the 'Content-Length' header; otherwise I won't touch it.
 
 That's it!
