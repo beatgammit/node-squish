@@ -3,7 +3,7 @@ Intro
 
 Squish your output using whatever compression you choose.
 
-Squish strives to be as standards complient as possible. The spec used as a reference can be found [here](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3).
+Squish strives to be as standards compliant as possible. The spec used as a reference can be found [here](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3).
 
 **Disclaimer:**
 
