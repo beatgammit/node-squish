@@ -4,11 +4,11 @@
 
 	var connect = require('connect'),
 		compressor = require('compressor'),
-		squish = require('../lib/squish'),
-		port = 2200;
+		squish = require('../../lib/squish'),
+		port = process.argv[2] || 2000;
 
 	connect(
-		squish('gzip', compressor.GzipStream),
+		squish([{type: 'gzip', constructor: compressor.GzipStream}]),
 		connect.static('./public')
 	).listen(port, function () {
 		console.log('Server on port ' + port);
