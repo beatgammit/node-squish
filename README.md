@@ -5,15 +5,15 @@ Squish your output using whatever compression you choose.
 
 Squish strives to be as standards compliant as possible. The spec used as a reference can be found [here](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3).
 
-**Disclaimer:**
-
-This has only been tested on static HTML files, but there's no reason it shouldn't work on other stuff too.
-
-If it fails, create an issue; better yet, fork and fix!
-
 **Note**
 
-This module can potentially send a 406 error (as per the spec) if the user explicitly tells it to. The only way to do this is to set `Accept-Encoding: identity;0` or not set identity and set `Accept-Encoding: *;0`. If your clients do that, they deserve to get an error.
+This module can potentially send a 406 error (as per the spec) if the user explicitly tells it to. The only ways to do this are to set `Accept-Encoding: identity;0` or to not set identity and set `Accept-Encoding: *;0`. If you or your clients do that, the request shall be granted.
+
+**Disclaimer:**
+
+Squish assumes that the response hasn't been sent yet. Errors will occur if a response is started (by calling writeHead or write) and not ended. If this happens, squish will try to give you some useful info then throw an error.
+
+As always, if something fails, create an issue. Better yet, fork and fix!
 
 How it works
 ------------
